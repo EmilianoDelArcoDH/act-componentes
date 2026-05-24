@@ -1,0 +1,917 @@
+:root {
+  --background: #070b14;
+  --surface: rgba(15, 23, 42, 0.82);
+  --surface-solid: #0f172a;
+  --surface-soft: rgba(30, 41, 59, 0.62);
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #8b5cf6;
+  --accent-soft: rgba(139, 92, 246, 0.16);
+  --ok: #22c55e;
+  --error: #ef4444;
+  --code: #0b1020;
+  --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.themeDark {
+  --background: #070b14;
+  --surface: rgba(15, 23, 42, 0.82);
+  --surface-solid: #0f172a;
+  --surface-soft: rgba(30, 41, 59, 0.62);
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #8b5cf6;
+  --accent-soft: rgba(139, 92, 246, 0.16);
+  --ok: #22c55e;
+  --error: #ef4444;
+  --code: #0b1020;
+  --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(139, 92, 246, 0.18), transparent 34%),
+    radial-gradient(circle at 80% 0%, rgba(34, 197, 94, 0.08), transparent 28%),
+    var(--background);
+  color: var(--text);
+}
+
+.themeLight {
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-solid: #ffffff;
+  --surface-soft: #f1f5f9;
+  --line: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #22c55e;
+  --accent-soft: rgba(34, 197, 94, 0.12);
+  --ok: #22c55e;
+  --error: #ef4444;
+  --code: #0f172a;
+  --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  background: var(--background);
+  color: var(--text);
+}
+
+.homePage,
+.activityPage {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.homeHero {
+  display: grid;
+  gap: 16px;
+  max-width: 1120px;
+  margin: 0 auto 26px;
+}
+
+.brandPill,
+.eyebrow,
+.progressBadge {
+  width: fit-content;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.progressBadge {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+
+.homeHero h1,
+.progressHeader h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(2.2rem, 4vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.progressHeader h1 {
+  font-size: clamp(1.8rem, 3vw, 3.4rem);
+}
+
+.homeHero p,
+.progressHeader p,
+.instructionsPanel p,
+.validationPanel p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.guideCards,
+.activityCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.guideCard,
+.activityCard,
+.panel,
+.validationPanel {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.themeDark .guideCard,
+.themeDark .activityCard,
+.themeDark .panel,
+.themeDark .validationPanel,
+.themeDark .homeLink {
+  backdrop-filter: blur(18px);
+}
+
+.guideCard,
+.activityCard {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  align-content: start;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.guideCard {
+  min-height: 340px;
+}
+
+.activityCard {
+  min-height: 220px;
+  align-content: space-between;
+}
+
+.guideCard:hover,
+.activityCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+  transform: translateY(-4px) scale(1.01);
+}
+
+.themeDark .guideCard:hover,
+.themeDark .activityCard:hover {
+  box-shadow:
+    var(--shadow),
+    0 0 34px rgba(139, 92, 246, 0.12);
+}
+
+.guideCard span,
+.activityCard span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.guideCard h2,
+.activityCard h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.28rem;
+  line-height: 1.18;
+}
+
+.activityCard h2 {
+  margin-top: 18px;
+  font-size: 1.35rem;
+}
+
+.guideCard p,
+.guideCard li,
+.activityCard p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.guideCard ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.primaryLink,
+.activityCard strong {
+  width: fit-content;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.themeLight .primaryLink,
+.themeLight .activityCard strong {
+  color: #052e16;
+}
+
+.progressHeader {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.7fr) minmax(300px, 1.6fr);
+  gap: 18px;
+  max-width: 1440px;
+  margin: 0 auto 18px;
+  align-items: start;
+}
+
+.headerBrand,
+.headerTitleBlock {
+  display: grid;
+  gap: 10px;
+}
+
+.academyLogo,
+.homeLink {
+  width: fit-content;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 800;
+}
+
+.breadcrumb {
+  font-size: 0.86rem;
+}
+
+.progressTrack {
+  width: min(520px, 100%);
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-soft);
+}
+
+.progressTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.activityGrid {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.85fr) minmax(390px, 1.5fr) minmax(300px, 1fr);
+  gap: 16px;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.instructionsPanel {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.instructionsPanel > p {
+  padding: 0 20px;
+}
+
+.objectiveBox {
+  margin: 0 20px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.objectiveBox strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.objectiveBox p {
+  padding: 0;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 20px 20px;
+}
+
+.primaryButton,
+.ghostButton {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 13px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.primaryButton {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 14px 30px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.themeLight .primaryButton {
+  color: #052e16;
+}
+
+.ghostButton {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.primaryButton:hover,
+.ghostButton:hover {
+  transform: translateY(-2px);
+}
+
+.editorPanel {
+  background: var(--code);
+  border-color: rgba(148, 163, 184, 0.14);
+}
+
+.editorChrome {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #070b14;
+  color: #94a3b8;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.editorTraffic {
+  display: flex;
+  gap: 7px;
+}
+
+.editorTraffic span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #475569;
+}
+
+.editorTraffic span:nth-child(1) {
+  background: #ef4444;
+}
+
+.editorTraffic span:nth-child(2) {
+  background: #f59e0b;
+}
+
+.editorTraffic span:nth-child(3) {
+  background: #22c55e;
+}
+
+.editorTabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding: 0 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b1020;
+}
+
+.editorTab {
+  position: relative;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.editorTab:hover {
+  background: rgba(148, 163, 184, 0.08);
+  color: #e2e8f0;
+}
+
+.editorTab.isActive {
+  border-left-color: rgba(255, 255, 255, 0.08);
+  border-right-color: rgba(255, 255, 255, 0.08);
+  background: #111827;
+  color: #f8fafc;
+}
+
+.editorTab.isActive::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: #8b5cf6;
+}
+
+.editorBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 590px;
+  background: var(--code);
+  transition: box-shadow 0.2s ease;
+}
+
+.editorPanel:focus-within .editorBody {
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.35);
+}
+
+.codeMirrorHost {
+  min-width: 0;
+}
+
+.codeMirrorHost .cm-editor {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: var(--code);
+}
+
+.codeMirrorHost .cm-scroller {
+  overflow: auto;
+}
+
+.editorStatus {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  min-height: 30px;
+  padding: 0 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #070b14;
+  color: #94a3b8;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.74rem;
+  align-items: center;
+}
+
+.rightStack {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.previewCanvas {
+  min-height: 300px;
+  padding: 18px;
+  background: color-mix(in srgb, var(--surface-solid) 86%, black);
+}
+
+.streamPreview {
+  display: grid;
+  gap: 14px;
+}
+
+.streamTopbar,
+.streamFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #111827;
+  color: white;
+}
+
+.streamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.streamCard {
+  min-height: 132px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(139, 92, 246, 0.36), transparent 58%),
+    #1e293b;
+  display: grid;
+  align-content: space-between;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.streamCard:hover {
+  transform: translateY(-4px);
+}
+
+.streamCard strong {
+  color: white;
+  font-size: 0.95rem;
+}
+
+.streamCard small {
+  color: #cbd5e1;
+}
+
+.streamButton {
+  width: fit-content;
+  padding: 8px 11px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.previewDiagram,
+.previewFileStack,
+.previewFlow,
+.utilityPreview,
+.previewColumns {
+  display: grid;
+  gap: 12px;
+}
+
+.diagramBlock,
+.previewFile,
+.flowStep,
+.previewColumn,
+.utilityPreview span {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-solid) 82%, transparent);
+  color: var(--text);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.diagramBlock {
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.86rem;
+}
+
+.diagramBlock.wide {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-solid));
+  color: var(--text);
+}
+
+.diagramBlock.active,
+.diagramBlock.nested {
+  border-color: color-mix(in srgb, var(--accent) 46%, var(--line));
+}
+
+.diagramBlock.nested {
+  width: 82%;
+  margin: -2px auto 0;
+  background: var(--accent-soft);
+}
+
+.previewColumns {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.previewColumn {
+  min-height: 132px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  padding: 14px;
+}
+
+.previewColumn strong,
+.flowStep strong {
+  font-size: 0.9rem;
+}
+
+.previewColumn span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.previewFile {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+}
+
+.utilityPreview {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.utilityPreview span {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+}
+
+.previewFlow {
+  gap: 10px;
+}
+
+.flowStep {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.flowStep span {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: white;
+  font-weight: 800;
+}
+
+.validationPanel {
+  padding: 18px;
+}
+
+.validationPanel strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.validationPanel ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  line-height: 1.5;
+  list-style: none;
+}
+
+.validationPanel li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.validationPanel li::before {
+  content: "";
+  position: absolute;
+  top: 0.65em;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--muted);
+}
+
+.validationPanel.isSuccess {
+  border-color: color-mix(in srgb, var(--ok) 52%, var(--line));
+  background: color-mix(in srgb, var(--ok) 10%, var(--surface));
+}
+
+.validationPanel.isSuccess p {
+  color: color-mix(in srgb, var(--ok) 72%, var(--text));
+}
+
+.validationPanel.isError {
+  border-color: color-mix(in srgb, var(--error) 50%, var(--line));
+  background: color-mix(in srgb, var(--error) 9%, var(--surface));
+}
+
+.validationPanel.isError li::before {
+  background: var(--error);
+}
+
+.themeLight .streamButton {
+  color: #052e16;
+}
+
+.themeLight .activityGrid {
+  grid-template-columns: minmax(220px, 0.72fr) minmax(430px, 1.55fr) minmax(300px, 0.95fr);
+}
+
+.themeLight .editorPanel,
+.themeLight .editorChrome,
+.themeLight .editorTabs,
+.themeLight .editorBody,
+.themeLight .codeMirrorHost .cm-editor {
+  background: #ffffff;
+}
+
+.themeLight .editorChrome,
+.themeLight .editorTabs {
+  border-bottom-color: var(--line);
+}
+
+.themeLight .editorTraffic span {
+  background: #cbd5e1;
+}
+
+.themeLight .editorTab {
+  color: var(--muted);
+}
+
+.themeLight .editorTab.isActive {
+  border-color: var(--line);
+  border-bottom-color: #ffffff;
+  background: #f8fafc;
+  color: var(--text);
+}
+
+.themeLight .editorTab.isActive::after {
+  background: #22c55e;
+}
+
+.themeLight .editorStatus {
+  border-top-color: var(--line);
+  background: #f8fafc;
+  color: var(--muted);
+}
+
+.themeLight .previewCanvas {
+  background: #f8fafc;
+}
+
+.themeLight .streamTopbar,
+.themeLight .streamFooter {
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--text);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.themeLight .streamCard {
+  min-height: 170px;
+  border-color: var(--line);
+  background:
+    linear-gradient(180deg, #0f172a 0 58%, #ffffff 58% 100%);
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
+}
+
+.themeLight .streamCard strong {
+  align-self: end;
+  color: #ffffff;
+}
+
+.themeLight .streamCard small {
+  color: var(--muted);
+}
+
+.themeLight .streamCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
+}
+
+.themeLight .diagramBlock,
+.themeLight .previewFile,
+.themeLight .flowStep,
+.themeLight .previewColumn,
+.themeLight .utilityPreview span {
+  background: #ffffff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+}
+
+.themeLight .validationPanel ul {
+  gap: 6px;
+}
+
+@media (max-width: 1180px) {
+  .activityGrid,
+  .themeLight .activityGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .codeMirrorHost .cm-editor {
+    min-height: 430px;
+    height: 430px;
+  }
+
+  .editorBody {
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 980px) {
+  .activityCards,
+  .guideCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .progressHeader {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .homePage,
+  .activityPage {
+    padding: 14px;
+  }
+
+  .activityCards,
+  .guideCards,
+  .streamGrid,
+  .previewColumns,
+  .utilityPreview {
+    grid-template-columns: 1fr;
+  }
+
+  .progressHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .actionRow {
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .ghostButton {
+    width: 100%;
+  }
+
+  .editorStatus {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+}
