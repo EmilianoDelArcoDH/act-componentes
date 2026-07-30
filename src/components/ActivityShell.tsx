@@ -5,7 +5,7 @@ import { CodeEditor } from "@/components/CodeEditor";
 import { PreviewPanel } from "@/components/PreviewPanel";
 import { ProgressHeader } from "@/components/ProgressHeader";
 import { ValidationPanel } from "@/components/ValidationPanel";
-import { combineEditorFiles, createEditorFiles, getInitialEditorFile } from "@/lib/editorFiles";
+import { combineEditorFiles, createEditorFiles, createPreviewDocument, getInitialEditorFile } from "@/lib/editorFiles";
 import { validateIndexHtmlSkeleton } from "@/lib/validators/helpers";
 import { PGEvent } from "@/pg-event";
 import type { ActivityShellProps, ValidationResult } from "@/types/activity";
@@ -28,6 +28,7 @@ export function ActivityShell({
   const [files, setFiles] = useState(initialFiles);
   const [activeFile, setActiveFile] = useState(getInitialEditorFile(initialFiles));
   const [result, setResult] = useState<ValidationResult | null>(null);
+  const [previewDocument, setPreviewDocument] = useState<string | null>(null);
   const combinedCode = useMemo(() => combineEditorFiles(files), [files]);
   const showInstructions = Boolean(instructions);
   const actions = (
@@ -50,6 +51,7 @@ export function ActivityShell({
     };
 
     setResult(finalValidation);
+    setPreviewDocument(createPreviewDocument(files));
     postValidationToPg(finalValidation);
   }
 
@@ -85,6 +87,7 @@ export function ActivityShell({
     setFiles(initialFiles);
     setActiveFile(getInitialEditorFile(initialFiles));
     setResult(null);
+    setPreviewDocument(null);
     postToPg({
       event: "FAILURE",
       reasons: [],
@@ -143,7 +146,7 @@ export function ActivityShell({
           onFileChange={handleFileChange}
         />
         <div className="rightStack">
-          <PreviewPanel>{preview}</PreviewPanel>
+          <PreviewPanel renderedHtml={previewDocument}>{preview}</PreviewPanel>
           <ValidationPanel result={result} successMessage={successMessage} errorMessages={errorMessages} />
         </div>
       </div>

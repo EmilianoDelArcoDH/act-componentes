@@ -92,6 +92,12 @@ function splitNamedHtmlFiles(initialCode: string): EditorFiles | null {
   if (markers.length === 0) return null;
 
   const files: EditorFiles = {};
+  const firstMarkerIndex = markers[0].index ?? 0;
+  const preamble = clean(initialCode.slice(0, firstMarkerIndex));
+
+  if (preamble) {
+    files["index.html"] = preamble;
+  }
 
   markers.forEach((marker, index) => {
     const fileName = marker[1];
@@ -159,4 +165,179 @@ export function combineEditorFiles(files: EditorFiles): string {
 
 export function getInitialEditorFile(files: EditorFiles): string {
   return Object.entries(files).find(([, content]) => content.trim().length > 0)?.[0] ?? "index.html";
+}
+
+function escapeClosingScript(value: string): string {
+  return value.replace(/<\/script/gi, "<\\/script");
+}
+
+function serializeFilesForPreview(files: EditorFiles): string {
+  return JSON.stringify(files).replace(/</g, "\\u003c");
+}
+
+const previewBaseStyles = `
+:root {
+  color-scheme: light;
+  font-family: Arial, sans-serif;
+  color: #172026;
+  background: #f4f7f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f4f7f8;
+}
+
+body > header,
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 24px;
+  background: #14213d;
+  color: white;
+}
+
+body > header h1,
+.site-header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+nav a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+main {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  padding: 18px;
+  background: white;
+  border: 1px solid #dce3e7;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(20, 33, 61, 0.08);
+}
+
+.movie-card h3,
+.movie-card p {
+  margin-top: 0;
+}
+
+button,
+.play-button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #0d9488;
+  color: white;
+  font-weight: 700;
+}
+
+body > footer,
+.site-footer {
+  padding: 18px 24px;
+  background: #e8eef0;
+  color: #34434b;
+  text-align: center;
+}
+`;
+
+const utilityPreviewMarkup = `<main>
+  <section class="movies-grid">
+    <article class="movie-card p-3 rounded shadow">
+      <h3 class="movie-title text-center bold">Neon Runner</h3>
+      <p class="movie-rating">8.8/10</p>
+      <p class="movie-year">2026</p>
+      <button class="bg-primary text-white">Ver ahora</button>
+    </article>
+  </section>
+</main>`;
+
+function hasOnlyEmptyMain(html: string): boolean {
+  const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? html;
+  return /^<main>\s*<\/main>$/i.test(body.trim());
+}
+
+export function createPreviewDocument(files: EditorFiles): string {
+  let html = files["index.html"] ?? "";
+  const js = files["app.js"] ?? "";
+  const allCss = Object.entries(files)
+    .filter(([fileName]) => /\.css$/i.test(fileName))
+    .map(([, content]) => content)
+    .filter((content) => content.trim().length > 0)
+    .join("\n\n");
+
+  if (allCss.trim() && hasOnlyEmptyMain(html)) {
+    html = html.replace(/<body[^>]*>[\s\S]*?<\/body>/i, `<body>\n${utilityPreviewMarkup}\n</body>`);
+  }
+
+  const styleTag = `<style>\n${previewBaseStyles}\n${allCss}\n</style>`;
+
+  if (/<\/head>/i.test(html)) {
+    if (/<link[^>]+rel=["']stylesheet["'][^>]*href=["']styles\.css["'][^>]*>/i.test(html)) {
+      html = html.replace(/<link[^>]+rel=["']stylesheet["'][^>]*href=["']styles\.css["'][^>]*>/i, styleTag);
+    } else {
+      html = html.replace(/<\/head>/i, `${styleTag}\n</head>`);
+    }
+  } else {
+    html = `${styleTag}\n${html}`;
+  }
+
+  const previewRuntime = `<script>
+(() => {
+  const files = ${serializeFilesForPreview(files)};
+  const originalFetch = window.fetch.bind(window);
+  window.fetch = (path, options) => {
+    const key = String(path).replace(/^\\.\\//, "");
+    if (Object.prototype.hasOwnProperty.call(files, key)) {
+      return Promise.resolve(new Response(files[key], { status: 200, headers: { "Content-Type": "text/html" } }));
+    }
+    return originalFetch(path, options);
+  };
+})();
+</script>`;
+
+  if (/<\/head>/i.test(html)) {
+    html = html.replace(/<\/head>/i, `${previewRuntime}\n</head>`);
+  } else {
+    html = `${previewRuntime}\n${html}`;
+  }
+
+  if (js.trim()) {
+    const scriptTag = `<script>\n${escapeClosingScript(js)}\n</script>`;
+
+    if (/<script[^>]+src=["']app\.js["'][^>]*>\s*<\/script>/i.test(html)) {
+      html = html.replace(/<script[^>]+src=["']app\.js["'][^>]*>\s*<\/script>/i, scriptTag);
+    } else if (/<\/body>/i.test(html)) {
+      html = html.replace(/<\/body>/i, `${scriptTag}\n</body>`);
+    } else {
+      html = `${html}\n${scriptTag}`;
+    }
+  }
+
+  return html;
 }

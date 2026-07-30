@@ -858,6 +858,8 @@ consigna:
 
     <h3>Instrucciones</h3>
     <ol>
+        <li>Revisa el archivo <code>index.html</code>: <code>#header-placeholder</code> y <code>#footer-placeholder</code> son los lugares donde se insertaran los fragmentos.</li>
+        <li>Revisa los archivos <code>components/header.html</code> y <code>components/footer.html</code>: esos archivos ya tienen el HTML que se debe cargar.</li>
         <li>Trabaja en el archivo <code>app.js</code>.</li>
         <li>Crea una función llamada <code>loadInclude(path, placeholderId)</code>.</li>
         <li>Dentro de la función, usa <code>fetch(path)</code>.</li>
@@ -877,6 +879,20 @@ consigna:
 &lt;/main&gt;
 &lt;div id="footer-placeholder"&gt;&lt;/div&gt;
 &lt;script src="app.js"&gt;&lt;/script&gt;
+
+&lt;!-- components/header.html --&gt;
+&lt;header class="site-header"&gt;
+  &lt;h1&gt;StreamFlix&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;a href="index.html"&gt;Inicio&lt;/a&gt;
+    &lt;a href="peliculas.html"&gt;Peliculas&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;!-- components/footer.html --&gt;
+&lt;footer class="site-footer"&gt;
+  &lt;p&gt;StreamFlix Originals&lt;/p&gt;
+&lt;/footer&gt;
 
 &lt;!-- app.js --&gt;
 function loadInclude(path, placeholderId) {
@@ -937,6 +953,7 @@ consigna:
         <li>En el clon, completa <code>.movie-title</code>, <code>.movie-rating</code> y <code>.movie-year</code> con <code>textContent</code>.</li>
         <li>Selecciona <code>.movies-grid</code>.</li>
         <li>Inserta el clon usando <code>appendChild</code>.</li>
+        <li>Al final, llama a <code>createMovieCard</code> con una pelicula de ejemplo para comprobar que aparece en pantalla.</li>
     </ol>
 
     <h3>Código inicial</h3>
@@ -960,7 +977,9 @@ const template = document.querySelector("#movie-card-template");
 
 ____
 
-}</code></pre>
+}
+
+____</code></pre>
 
     <div class="aviso-importante">
         <strong>Importante:</strong>
@@ -998,26 +1017,32 @@ consigna:
         Debes separar los datos de las películas de la estructura HTML para generar varias tarjetas de forma reutilizable.
     </p>
 
-    <h3>Contexto</h3>
-    <p>
-        Una función reutilizable mejora el código, pero los datos también deben estar organizados para evitar repetir llamadas sueltas o HTML manual.
-    </p>
+    <h3>Codigo inicial</h3>
+    <pre class="codigo-copiable"><code>&lt;!-- index.html --&gt;
 
-    <h3>Instrucciones</h3>
-    <ol>
-        <li>En <code>app.js</code>, crea <code>const movies = [...]</code>.</li>
-        <li>Agrega al menos 3 objetos dentro del arreglo.</li>
-        <li>Cada objeto debe tener <code>title</code>, <code>rating</code> y <code>year</code>.</li>
-        <li>Recorre <code>movies</code> con <code>forEach</code> o con un bucle.</li>
-        <li>En cada vuelta, llama a <code>createMovieCard</code> con los datos del objeto.</li>
-        <li>No copies 3 tarjetas manuales en HTML.</li>
-    </ol>
+&lt;main&gt;
+&lt;section class="movies-grid"&gt;&lt;/section&gt;
+&lt;template id="movie-card-template"&gt;
+&lt;article class="movie-card"&gt;
+&lt;h3 class="movie-title"&gt;&lt;/h3&gt;
+&lt;p class="movie-rating"&gt;&lt;/p&gt;
+&lt;p class="movie-year"&gt;&lt;/p&gt;
+&lt;button&gt;Ver ahora&lt;/button&gt;
+&lt;/article&gt;
+&lt;/template&gt;
+&lt;/main&gt;
 
-    <h3>Código inicial</h3>
-    <pre class="codigo-copiable"><code>&lt;!-- app.js --&gt;
+&lt;!-- app.js --&gt;
 
 function createMovieCard(title, rating, year) {
-// La función ya existe desde la actividad anterior
+const template = document.querySelector("#movie-card-template");
+const clone = template.content.cloneNode(true);
+
+clone.querySelector(".movie-title").textContent = title;
+clone.querySelector(".movie-rating").textContent = rating;
+clone.querySelector(".movie-year").textContent = year;
+
+document.querySelector(".movies-grid").appendChild(clone);
 }
 
 const movies = [

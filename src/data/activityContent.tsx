@@ -219,6 +219,92 @@ function FinalPreview({ mode }: { mode: "architecture" | "improvements" | "portf
   );
 }
 
+const streamflixBaseStyles = `body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f8;
+  color: #172026;
+}
+
+header,
+.site-header {
+  padding: 18px 24px;
+  background-color: #14213d;
+  color: white;
+}
+
+header h1,
+.site-header h1 {
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+main {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  padding: 18px;
+  background-color: white;
+  border: 1px solid #dce3e7;
+  border-radius: 10px;
+}
+
+.movie-card h3,
+.movie-card p {
+  margin-top: 0;
+}
+
+button,
+.play-button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background-color: #0d9488;
+  color: white;
+  font-weight: bold;
+}
+
+footer,
+.site-footer {
+  padding: 18px 24px;
+  background-color: #e8eef0;
+  text-align: center;
+}`;
+
+const streamflixBaseStylesSection = `<!-- styles.css -->\n${streamflixBaseStyles}`;
+
+const streamflixUtilitiesSection = `<!-- utilities.css -->
+.bg-primary { background-color: #0d9488; }
+.bg-dark { background-color: #14213d; }
+.text-white { color: white; }
+.text-center { text-align: center; }
+.bold { font-weight: bold; }
+.rounded { border-radius: 8px; }
+.shadow { box-shadow: 0 10px 24px rgba(20, 33, 61, 0.12); }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 1rem; }
+.m-2 { margin: 0.5rem; }`;
+
 export const activityContent: Record<string, ActivityContent> = {
   "componentes-actividad-1": {
     subtitle: "Reconoce las piezas principales antes de repetirlas.",
@@ -230,7 +316,9 @@ export const activityContent: Record<string, ActivityContent> = {
 
 <main>
   <h2>Peliculas destacadas</h2>
-</main>`,
+</main>
+
+${streamflixBaseStylesSection}`,
     preview: <StructurePreview />,
     validate: validateComponentesActividad1,
     successMessage: "La interfaz ya tiene sus piezas principales. Ahora puedes detectar que partes se repiten.",
@@ -248,7 +336,9 @@ export const activityContent: Record<string, ActivityContent> = {
       <button>Ver ahora</button>
     </article>
   </section>
-</main>`,
+</main>
+
+${streamflixBaseStylesSection}`,
     preview: <ManualCardsPreview />,
     validate: validateComponentesActividad2,
     successMessage: "Las cards manuales estan completas. Ya se ve por que copiar HTML no escala.",
@@ -283,7 +373,9 @@ export const activityContent: Record<string, ActivityContent> = {
       "Contexto: en la clase anterior copiaste cards manualmente. Ahora vas a crear un molde para no repetir la estructura.\n\nQue hacer:\n1. Crea una etiqueta template.\n2. Dale el id movie-card-template.\n3. Dentro del template, agrega una card con class=\"movie-card\".\n4. Dentro de la card, agrega elementos con class=\"movie-title\" y class=\"movie-rating\" o class=\"movie-year\".\n5. Agrega un boton dentro de la card.\n\nResultado esperado: el HTML de una card queda guardado como molde, pero todavia no se genera ninguna card dinamica.\n\nConexion: en la proxima actividad vas a comprobar que el contenido de template queda oculto hasta que JavaScript lo use.",
     initialCode: `<template id="movie-card-template">
   <!-- Crea aqui una article.movie-card con titulo, dato y boton -->
-</template>`,
+</template>
+
+${streamflixBaseStylesSection}`,
     preview: <TemplatePreview mode="mold" />,
     validate: validateTemplateHtmlActividad1,
     successMessage: "El molde de card esta listo. Ya no dependes de copiar la estructura a mano.",
@@ -301,7 +393,9 @@ export const activityContent: Record<string, ActivityContent> = {
       <button>Ver ahora</button>
     </article>
   </section>
-</main>`,
+</main>
+
+${streamflixBaseStylesSection}`,
     preview: <TemplatePreview mode="hidden" />,
     validate: validateTemplateHtmlActividad2,
     successMessage: "El template quedo oculto y el grid visible quedo preparado para recibir clones.",
@@ -319,7 +413,9 @@ export const activityContent: Record<string, ActivityContent> = {
       <button>Ver ahora</button>
     </article>
   </template>
-</main>`,
+</main>
+
+${streamflixBaseStylesSection}`,
     preview: <TemplatePreview mode="ready" />,
     validate: validateTemplateHtmlActividad3,
     successMessage: "La estructura quedo lista para clonarse con JavaScript en una clase posterior.",
@@ -360,7 +456,9 @@ export const activityContent: Record<string, ActivityContent> = {
 </html>
 
 <!-- Analisis -->
-Escribe aqui que partes se repiten y por que eso trae problemas.`,
+Escribe aqui que partes se repiten y por que eso trae problemas.
+
+${streamflixBaseStylesSection}`,
     preview: <IncludesPreview mode="detect" />,
     validate: validateIncludesHtmlActividad1,
     successMessage: "Detectaste la repeticion entre paginas. Ahora tiene sentido extraer header y footer.",
@@ -395,7 +493,9 @@ Escribe aqui que partes se repiten y por que eso trae problemas.`,
 ____
 
 <!-- components/footer.html -->
-____`,
+____
+
+${streamflixBaseStylesSection}`,
     preview: <IncludesPreview mode="split" />,
     validate: validateIncludesHtmlActividad2,
     successMessage: "Header y footer quedaron centralizados como fragmentos externos simulados.",
@@ -413,7 +513,9 @@ ____
   </section>
 </main>
 ____
-____`,
+____
+
+${streamflixBaseStylesSection}`,
     preview: <IncludesPreview mode="placeholders" />,
     validate: validateIncludesHtmlActividad3,
     successMessage: "index.html quedo preparado para cargar includes con JavaScript mas adelante.",
@@ -480,7 +582,7 @@ ____`,
   "insertar-plantillas-actividad-1": {
     subtitle: "Carga fragmentos externos con fetch.",
     instructions:
-      "Contexto: en la clase de includes dejaste placeholders vacios. Ahora vas a cargarlos con JavaScript minimo.\n\nQue hacer:\n1. Trabaja en app.js.\n2. Crea una funcion loadInclude(path, placeholderId).\n3. Dentro de la funcion, usa fetch(path).\n4. Convierte la respuesta con res.text() o response.text().\n5. Selecciona el placeholder con document.querySelector(placeholderId).\n6. Inserta el HTML recibido con innerHTML.\n7. Llama a loadInclude para components/header.html y #header-placeholder.\n8. Llama a loadInclude para components/footer.html y #footer-placeholder.\n\nResultado esperado: una funcion reusable capaz de cargar header y footer.\n\nConexion: en la siguiente actividad vas a usar otra tecnica de JS minimo: clonar el template de peliculas.",
+      "Contexto: en la clase de includes dejaste placeholders vacios. Ahora vas a cargarlos con JavaScript minimo.\n\nQue hacer:\n1. Revisa index.html: #header-placeholder y #footer-placeholder son los lugares donde se insertaran los fragmentos.\n2. Revisa components/header.html y components/footer.html: esos archivos ya tienen el HTML que se debe cargar.\n3. Trabaja en app.js.\n4. Crea una funcion loadInclude(path, placeholderId).\n5. Dentro de la funcion, usa fetch(path).\n6. Convierte la respuesta con res.text() o response.text().\n7. Selecciona el placeholder con document.querySelector(placeholderId).\n8. Inserta el HTML recibido con innerHTML.\n9. Llama a loadInclude para components/header.html y #header-placeholder.\n10. Llama a loadInclude para components/footer.html y #footer-placeholder.\n\nResultado esperado: una funcion reusable capaz de cargar header y footer.\n\nConexion: en la siguiente actividad vas a usar otra tecnica de JS minimo: clonar el template de peliculas.",
     initialCode: `<!-- index.html -->
 <div id="header-placeholder"></div>
 <main>
@@ -489,12 +591,28 @@ ____`,
 <div id="footer-placeholder"></div>
 <script src="app.js"></script>
 
+<!-- components/header.html -->
+<header class="site-header">
+  <h1>StreamFlix</h1>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="peliculas.html">Peliculas</a>
+  </nav>
+</header>
+
+<!-- components/footer.html -->
+<footer class="site-footer">
+  <p>StreamFlix Originals</p>
+</footer>
+
 <!-- app.js -->
 function loadInclude(path, placeholderId) {
   // Carga el archivo con fetch y coloca el HTML en el placeholder
 }
 
-// Llama a loadInclude para header y footer`,
+// Llama a loadInclude para header y footer
+
+${streamflixBaseStylesSection}`,
     preview: <JsFlowPreview mode="include" />,
     validate: validateInsertarPlantillasActividad1,
     successMessage: "loadInclude quedo listo para cargar includes sin repetir codigo.",
@@ -503,7 +621,7 @@ function loadInclude(path, placeholderId) {
   "insertar-plantillas-actividad-2": {
     subtitle: "Clona una card desde el template.",
     instructions:
-      "Contexto: en la clase de template preparaste un molde oculto. Ahora vas a crear una card real clonando ese molde.\n\nQue hacer:\n1. Trabaja en app.js.\n2. Crea createMovieCard(title, rating, year).\n3. Selecciona #movie-card-template con document.querySelector.\n4. Clona template.content usando cloneNode(true).\n5. En el clon, completa .movie-title, .movie-rating y .movie-year con textContent.\n6. Selecciona .movies-grid.\n7. Inserta el clon usando appendChild.\n\nResultado esperado: una funcion que recibe datos y genera una card desde el template.\n\nConexion: en la siguiente actividad vas a separar los datos en un array para generar muchas cards sin repetir llamadas sueltas.",
+      "Contexto: en la clase de template preparaste un molde oculto. Ahora vas a crear una card real clonando ese molde.\n\nQue hacer:\n1. Trabaja en app.js.\n2. Crea createMovieCard(title, rating, year).\n3. Selecciona #movie-card-template con document.querySelector.\n4. Clona template.content usando cloneNode(true).\n5. En el clon, completa .movie-title, .movie-rating y .movie-year con textContent.\n6. Selecciona .movies-grid.\n7. Inserta el clon usando appendChild.\n8. Al final, llama a createMovieCard con una pelicula de ejemplo para comprobar que aparece en pantalla.\n\nResultado esperado: una funcion que recibe datos y genera una card visible desde el template.\n\nConexion: en la siguiente actividad vas a separar los datos en un array para generar muchas cards sin repetir llamadas sueltas.",
     initialCode: `<!-- index.html -->
 <main>
   <section class="movies-grid"></section>
@@ -521,26 +639,52 @@ function loadInclude(path, placeholderId) {
 function createMovieCard(title, rating, year) {
   const template = document.querySelector("#movie-card-template");
   // Clona template.content y completa title, rating y year
-}`,
+}
+
+// Llama a createMovieCard con una pelicula de ejemplo
+
+${streamflixBaseStylesSection}`,
     preview: <JsFlowPreview mode="clone" />,
     validate: validateInsertarPlantillasActividad2,
     successMessage: "createMovieCard ya puede crear una card desde el template.",
-    errorMessages: ["Usa document.querySelector.", "Usa template.content.cloneNode(true).", "Modifica textContent e inserta con appendChild."],
+    errorMessages: ["Usa document.querySelector.", "Usa template.content.cloneNode(true).", "Modifica textContent, inserta con appendChild y llama a la funcion."],
   },
   "insertar-plantillas-actividad-3": {
     subtitle: "Separa datos de estructura.",
     instructions:
       "Contexto: una funcion reusable mejora el codigo, pero los datos tambien deben estar organizados.\n\nQue hacer:\n1. En app.js, crea const movies = [...].\n2. Agrega al menos 3 objetos dentro del array.\n3. Cada objeto debe tener title, rating y year.\n4. Recorre movies con forEach o un loop.\n5. En cada vuelta, llama createMovieCard con los datos del objeto.\n6. No copies 3 cards manuales en HTML.\n\nResultado esperado: las cards salen de datos, no de HTML duplicado.\n\nCierre de clase: ya conectaste includes, templates y datos con JS minimo. La siguiente clase integra todo y pide mejoras reales.",
-    initialCode: `<!-- app.js -->
+    initialCode: `<!-- index.html -->
+<main>
+  <section class="movies-grid"></section>
+  <template id="movie-card-template">
+    <article class="movie-card">
+      <h3 class="movie-title"></h3>
+      <p class="movie-rating"></p>
+      <p class="movie-year"></p>
+      <button>Ver ahora</button>
+    </article>
+  </template>
+</main>
+
+<!-- app.js -->
 function createMovieCard(title, rating, year) {
-  // La funcion ya existe en la clase anterior
+  const template = document.querySelector("#movie-card-template");
+  const clone = template.content.cloneNode(true);
+
+  clone.querySelector(".movie-title").textContent = title;
+  clone.querySelector(".movie-rating").textContent = rating;
+  clone.querySelector(".movie-year").textContent = year;
+
+  document.querySelector(".movies-grid").appendChild(clone);
 }
 
 const movies = [
   { title: "Neon Runner", rating: "8.8/10", year: "2026" },
 ];
 
-// Recorre movies y llama createMovieCard con cada objeto`,
+// Recorre movies y llama createMovieCard con cada objeto
+
+${streamflixBaseStylesSection}`,
     preview: <JsFlowPreview mode="data" />,
     validate: validateInsertarPlantillasActividad3,
     successMessage: "Las cards se generan desde datos. StreamFlix ya funciona como sistema reutilizable.",
@@ -559,7 +703,9 @@ const movies = [
     <!-- Completa la card reutilizable aqui -->
   </template>
 </main>
-<!-- Falta footer-placeholder y app.js -->`,
+<!-- Falta footer-placeholder y app.js -->
+
+${streamflixUtilitiesSection}`,
     preview: <FinalPreview mode="architecture" />,
     validate: validateUiReutilizableActividad1,
     successMessage: "La arquitectura reutilizable tiene todas las piezas clave del modulo.",
@@ -601,7 +747,9 @@ const movies = [
   </section>
   <template id="movie-card-template"></template>
 </main>
-<div id="footer-placeholder"></div>`,
+<div id="footer-placeholder"></div>
+
+${streamflixUtilitiesSection}`,
     preview: <FinalPreview mode="portfolio" />,
     validate: validateUiReutilizableActividad3,
     successMessage: "La arquitectura se reutilizo correctamente para un portfolio. Ese es el cierre del modulo.",

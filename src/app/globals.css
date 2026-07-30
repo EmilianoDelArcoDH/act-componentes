@@ -558,6 +558,19 @@ button {
   background: color-mix(in srgb, var(--surface-solid) 86%, black);
 }
 
+.previewCanvas.hasRenderedResult {
+  padding: 0;
+  background: #ffffff;
+}
+
+.resultFrame {
+  display: block;
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  background: #ffffff;
+}
+
 .streamPreview {
   display: grid;
   gap: 14px;

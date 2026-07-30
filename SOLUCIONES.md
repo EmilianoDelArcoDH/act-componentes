@@ -302,6 +302,20 @@ Duplicar header y footer dificulta el mantenimiento porque cada cambio debe hace
 <div id="footer-placeholder"></div>
 <script src="app.js"></script>
 
+<!-- components/header.html -->
+<header class="site-header">
+  <h1>StreamFlix</h1>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="peliculas.html">Peliculas</a>
+  </nav>
+</header>
+
+<!-- components/footer.html -->
+<footer class="site-footer">
+  <p>StreamFlix Originals</p>
+</footer>
+
 <!-- app.js -->
 function loadInclude(path, placeholderId) {
   fetch(path)
@@ -343,11 +357,28 @@ function createMovieCard(title, rating, year) {
 
   document.querySelector(".movies-grid").appendChild(clone);
 }
+
+createMovieCard("Neon Runner", "8.8/10", "2026");
 ```
 
 ### Actividad 3 - Generar varias cards desde datos
 
-```js
+```html
+<!-- index.html -->
+<main>
+  <section class="movies-grid"></section>
+
+  <template id="movie-card-template">
+    <article class="movie-card">
+      <h3 class="movie-title"></h3>
+      <p class="movie-rating"></p>
+      <p class="movie-year"></p>
+      <button>Ver ahora</button>
+    </article>
+  </template>
+</main>
+
+<!-- app.js -->
 function createMovieCard(title, rating, year) {
   const template = document.querySelector("#movie-card-template");
   const clone = template.content.cloneNode(true);

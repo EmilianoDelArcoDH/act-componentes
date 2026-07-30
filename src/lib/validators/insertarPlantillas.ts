@@ -59,6 +59,9 @@ export function validateInsertarPlantillasActividad2(code: string): ValidationRe
   if (!/querySelector\s*\(\s*["']\.movie-year["']\s*\)[\s\S]*\.textContent\s*=/i.test(code)) messages.push("Completa .movie-year con textContent.");
   if (!/\.appendChild\s*\(/i.test(code)) messages.push("Usa appendChild para insertar las cards.");
   if (!/\.movies-grid/i.test(code)) messages.push("Inserta la card en .movies-grid.");
+  if (((code.match(/createMovieCard\s*\(/g) ?? []).length - (code.match(/function\s+createMovieCard\s*\(/g) ?? []).length) < 1) {
+    messages.push("Llama a createMovieCard con una pelicula de ejemplo para ver la card.");
+  }
 
   return result(messages);
 }
