@@ -328,36 +328,49 @@ export const activityContent: Record<string, ActivityContent> = {
   "includes-html-actividad-1": {
     subtitle: "Encuentra lo que se repite antes de extraerlo.",
     instructions:
-      "Contexto: template ayuda dentro de una pagina. Includes ayudan cuando se repiten partes entre varias paginas.\n\nQue hacer:\n1. Revisa el ejemplo de index.html y peliculas.html.\n2. Escribe en el bloque Analisis que el header esta repetido.\n3. Escribe tambien que el footer esta repetido.\n4. Explica en una frase por que duplicar header/footer dificulta mantener el sitio.\n\nResultado esperado: no estas arreglando codigo todavia; estas diagnosticando el problema de mantenimiento.\n\nConexion: en la siguiente actividad vas a mover esas partes repetidas a archivos separados.",
+      "Contexto: template ayuda dentro de una pagina. Includes ayudan cuando se repiten partes entre varias paginas.\n\nQue hacer:\n1. Revisa el ejemplo de index.html y peliculas.html.\n2. En el bloque Analisis, escribe una frase que diga que el header esta repetido en las dos paginas.\n3. En el mismo bloque, escribe otra frase que diga que el footer esta repetido en las dos paginas.\n4. Explica en una frase por que duplicar header/footer dificulta mantener el sitio.\n\nResultado esperado: no estas arreglando codigo todavia; estas diagnosticando el problema de mantenimiento.\n\nConexion: en la siguiente actividad vas a mover esas partes repetidas a archivos separados.",
     initialCode: `<!-- index.html -->
-<header>StreamFlix nav</header>
-<main>Inicio</main>
-<footer>Contacto</footer>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix</title>
+  </head>
+  <body>
+    <header>StreamFlix nav</header>
+    <main>Inicio</main>
+    <footer>Contacto</footer>
+  </body>
+</html>
 
 <!-- peliculas.html -->
-<header>StreamFlix nav</header>
-<main>Peliculas</main>
-<footer>Contacto</footer>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peliculas - StreamFlix</title>
+  </head>
+  <body>
+    <header>StreamFlix nav</header>
+    <main>Peliculas</main>
+    <footer>Contacto</footer>
+  </body>
+</html>
 
 <!-- Analisis -->
 Escribe aqui que partes se repiten y por que eso trae problemas.`,
     preview: <IncludesPreview mode="detect" />,
     validate: validateIncludesHtmlActividad1,
     successMessage: "Detectaste la repeticion entre paginas. Ahora tiene sentido extraer header y footer.",
-    errorMessages: ["Identifica header y footer como repetidos.", "Menciona que duplicar dificulta mantener.", "Incluye index.html y peliculas.html."],
+    errorMessages: ["Escribe en Analisis que el header se repite.", "Escribe en Analisis que el footer se repite.", "Menciona que duplicar dificulta mantener.", "Incluye index.html y peliculas.html."],
   },
   "includes-html-actividad-2": {
     subtitle: "Extrae header y footer como fragmentos simulados.",
     instructions:
-      "Contexto: ahora vas a centralizar las partes que se repiten entre paginas.\n\nQue hacer:\n1. Deja index.html sin header directo y sin footer directo.\n2. Mantiene en index.html solo el main con el contenido propio de la pagina.\n3. En components/header.html, deja unicamente la etiqueta header con logo y navegacion.\n4. En components/footer.html, deja unicamente la etiqueta footer.\n5. No agregues html, head ni body dentro de los archivos de components.\n\nResultado esperado: index.html ya no duplica header/footer; esos fragmentos viven en archivos separados.\n\nConexion: todavia no se van a ver cargados. En la siguiente actividad vas a preparar los lugares donde se insertaran.",
+      "Contexto: ahora vas a centralizar las partes que se repiten entre paginas.\n\nQue hacer:\n1. En index.html, identifica el bloque completo de header. Es el bloque que empieza en la etiqueta de apertura header y termina en la etiqueta de cierre /header.\n2. Quita ese bloque de index.html y colocalo en components/header.html.\n3. En components/header.html debe quedar solo ese fragmento de encabezado: no agregues html, head ni body.\n4. En index.html, identifica el bloque completo de footer. Es el bloque que empieza en la etiqueta de apertura footer y termina en la etiqueta de cierre /footer.\n5. Quita ese bloque de index.html y colocalo en components/footer.html.\n6. En components/footer.html debe quedar solo ese fragmento de pie de pagina: no agregues html, head ni body.\n7. Deja en index.html solo el main con el contenido propio de la pagina.\n\nResultado esperado: index.html ya no duplica header/footer; esos fragmentos viven en archivos separados.\n\nConexion: todavia no se van a ver cargados. En la siguiente actividad vas a preparar los lugares donde se insertaran.",
     initialCode: `<!-- index.html -->
-<main>
-  <section class="movies-grid">
-    <h2>Peliculas destacadas</h2>
-  </section>
-</main>
-
-<!-- components/header.html -->
 <header class="site-header">
   <div class="container">
     <h1>StreamFlix</h1>
@@ -368,10 +381,21 @@ Escribe aqui que partes se repiten y por que eso trae problemas.`,
   </div>
 </header>
 
-<!-- components/footer.html -->
+<main>
+  <section class="movies-grid">
+    <h2>Peliculas destacadas</h2>
+  </section>
+</main>
+
 <footer class="site-footer">
   <p>&copy; 2026 StreamFlix</p>
-</footer>`,
+</footer>
+
+<!-- components/header.html -->
+____
+
+<!-- components/footer.html -->
+____`,
     preview: <IncludesPreview mode="split" />,
     validate: validateIncludesHtmlActividad2,
     successMessage: "Header y footer quedaron centralizados como fragmentos externos simulados.",
@@ -380,15 +404,16 @@ Escribe aqui que partes se repiten y por que eso trae problemas.`,
   "includes-html-actividad-3": {
     subtitle: "Prepara los puntos de montaje para cargar includes.",
     instructions:
-      "Contexto: HTML puro no incluye archivos externos por si solo. Por eso dejamos espacios vacios que JavaScript completara despues.\n\nQue hacer:\n1. En index.html, agrega un div con id=\"header-placeholder\" antes de main.\n2. Conserva main con el contenido propio de la pagina.\n3. Agrega un div con id=\"footer-placeholder\" despues de main.\n4. Agrega script src=\"app.js\" al final.\n5. No vuelvas a escribir header ni footer directos en index.html.\n\nResultado esperado: la pagina queda incompleta visualmente, pero preparada para cargar includes.\n\nCierre de clase: ya separaste archivos y preparaste placeholders. La siguiente clase mejora la consistencia visual con utilidades CSS.",
+      "Contexto: ya separaste el header y el footer en archivos propios. Ahora index.html necesita dos espacios vacios para que JavaScript pueda insertarlos mas adelante.\n\nQue hacer:\n1. En el primer espacio, antes de main, agrega un div vacio con id=\"header-placeholder\".\n2. No pongas contenido dentro de ese div.\n3. Deja el main como esta.\n4. En el segundo espacio, despues del cierre de main, agrega un div vacio con id=\"footer-placeholder\".\n5. Al final del archivo, agrega el script que conecta app.js.\n6. No vuelvas a escribir header ni footer completos en index.html.\n\nResultado esperado: index.html debe quedar con un contenedor vacio antes de main, el contenido principal en main, un contenedor vacio despues de main y la referencia a app.js al final.\n\nCierre de clase: ya separaste archivos y preparaste los puntos donde se insertaran. La siguiente clase mejora la consistencia visual con utilidades CSS.",
     initialCode: `<!-- index.html -->
-<div id="header-placeholder"></div>
+____
 <main>
   <section class="movies-grid">
     <h2>Peliculas destacadas</h2>
   </section>
 </main>
-<!-- Falta footer-placeholder y script app.js -->`,
+____
+____`,
     preview: <IncludesPreview mode="placeholders" />,
     validate: validateIncludesHtmlActividad3,
     successMessage: "index.html quedo preparado para cargar includes con JavaScript mas adelante.",

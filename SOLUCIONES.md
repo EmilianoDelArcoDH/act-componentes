@@ -150,14 +150,34 @@ document.querySelector(".play-button").addEventListener("click", playMovie);
 
 ```html
 <!-- index.html -->
-<header>StreamFlix nav</header>
-<main>Inicio</main>
-<footer>Contacto</footer>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix</title>
+  </head>
+  <body>
+    <header>StreamFlix nav</header>
+    <main>Inicio</main>
+    <footer>Contacto</footer>
+  </body>
+</html>
 
 <!-- peliculas.html -->
-<header>StreamFlix nav</header>
-<main>Peliculas</main>
-<footer>Contacto</footer>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peliculas - StreamFlix</title>
+  </head>
+  <body>
+    <header>StreamFlix nav</header>
+    <main>Peliculas</main>
+    <footer>Contacto</footer>
+  </body>
+</html>
 
 <!-- Analisis -->
 El header esta repetido en index.html y peliculas.html.

@@ -436,29 +436,49 @@ consigna:
     <h3>Instrucciones</h3>
     <ol>
         <li>Revisa el ejemplo de <code>index.html</code> y <code>peliculas.html</code>.</li>
-        <li>En el bloque <code>Analisis</code>, escribe que el <code>&lt;header&gt;</code> está repetido.</li>
-        <li>Escribe también que el <code>&lt;footer&gt;</code> está repetido.</li>
-        <li>Agrega una frase breve que explique por qué duplicar <code>&lt;header&gt;</code> y <code>&lt;footer&gt;</code> dificulta mantener el sitio.</li>
+        <li>En el bloque <code>Analisis</code>, escribe una frase que diga que el <code>&lt;header&gt;</code> est&aacute; repetido en las dos p&aacute;ginas.</li>
+        <li>En el mismo bloque, escribe otra frase que diga que el <code>&lt;footer&gt;</code> est&aacute; repetido en las dos p&aacute;ginas.</li>
+        <li>Agrega una frase breve que explique por qu&eacute; duplicar <code>&lt;header&gt;</code> y <code>&lt;footer&gt;</code> dificulta mantener el sitio.</li>
     </ol>
 
-    <h3>Código inicial</h3>
+    <h3>C&oacute;digo inicial</h3>
     <pre class="codigo-copiable"><code>&lt;!-- index.html --&gt;
 
-&lt;header&gt;StreamFlix nav&lt;/header&gt;
-&lt;main&gt;Inicio&lt;/main&gt;
-&lt;footer&gt;Contacto&lt;/footer&gt;
+&lt;!doctype html&gt;
+&lt;html lang="es"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;StreamFlix&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;StreamFlix nav&lt;/header&gt;
+    &lt;main&gt;Inicio&lt;/main&gt;
+    &lt;footer&gt;Contacto&lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 
 &lt;!-- peliculas.html --&gt;
-&lt;header&gt;StreamFlix nav&lt;/header&gt;
-&lt;main&gt;Películas&lt;/main&gt;
-&lt;footer&gt;Contacto&lt;/footer&gt;
+&lt;!doctype html&gt;
+&lt;html lang="es"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Pel&iacute;culas - StreamFlix&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;StreamFlix nav&lt;/header&gt;
+    &lt;main&gt;Pel&iacute;culas&lt;/main&gt;
+    &lt;footer&gt;Contacto&lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 
 &lt;!-- Analisis --&gt;
 ____</code></pre>
 
     <div class="aviso-importante">
         <strong>Importante:</strong>
-        En esta actividad no tienes que corregir el código. Solo debes diagnosticar la repetición.
+        En esta actividad no tienes que corregir el c&oacute;digo ni marcar visualmente los elementos. Solo debes escribir el an&aacute;lisis de la repetici&oacute;n.
     </div>
 
     <h3>Resultado esperado</h3>
@@ -499,21 +519,37 @@ consigna:
 
     <h3>Instrucciones</h3>
     <ol>
-        <li>Deja <code>index.html</code> sin <code>&lt;header&gt;</code> directo y sin <code>&lt;footer&gt;</code> directo.</li>
-        <li>Conserva en <code>index.html</code> solo el <code>&lt;main&gt;</code> con el contenido propio de la página.</li>
-        <li>En <code>components/header.html</code>, deja únicamente la etiqueta <code>&lt;header&gt;</code> con logo y navegación.</li>
-        <li>En <code>components/footer.html</code>, deja únicamente la etiqueta <code>&lt;footer&gt;</code>.</li>
-        <li>No agregues <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> ni <code>&lt;body&gt;</code> dentro de los archivos de la carpeta <code>components</code>.</li>
+        <li>En <code>index.html</code>, identifica el bloque completo de <code>&lt;header&gt;</code>. Es el bloque que empieza en la etiqueta de apertura <code>&lt;header&gt;</code> y termina en la etiqueta de cierre <code>&lt;/header&gt;</code>.</li>
+        <li>Quita ese bloque de <code>index.html</code> y col&oacute;calo en <code>components/header.html</code>.</li>
+        <li>En <code>components/header.html</code> debe quedar solo ese fragmento de encabezado: no agregues <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> ni <code>&lt;body&gt;</code>.</li>
+        <li>En <code>index.html</code>, identifica el bloque completo de <code>&lt;footer&gt;</code>. Es el bloque que empieza en la etiqueta de apertura <code>&lt;footer&gt;</code> y termina en la etiqueta de cierre <code>&lt;/footer&gt;</code>.</li>
+        <li>Quita ese bloque de <code>index.html</code> y col&oacute;calo en <code>components/footer.html</code>.</li>
+        <li>En <code>components/footer.html</code> debe quedar solo ese fragmento de pie de p&aacute;gina: no agregues <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> ni <code>&lt;body&gt;</code>.</li>
+        <li>Deja en <code>index.html</code> solo el <code>&lt;main&gt;</code> con el contenido propio de la p&aacute;gina.</li>
     </ol>
 
     <h3>Código inicial</h3>
     <pre class="codigo-copiable"><code>&lt;!-- index.html --&gt;
 
+&lt;header class="site-header"&gt;
+  &lt;div class="container"&gt;
+    &lt;h1&gt;StreamFlix&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;a href="index.html"&gt;Inicio&lt;/a&gt;
+      &lt;a href="peliculas.html"&gt;Pel&iacute;culas&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
 &lt;main&gt;
-&lt;section class="movies-grid"&gt;
-&lt;h2&gt;Películas destacadas&lt;/h2&gt;
-&lt;/section&gt;
+  &lt;section class="movies-grid"&gt;
+    &lt;h2&gt;Pel&iacute;culas destacadas&lt;/h2&gt;
+  &lt;/section&gt;
 &lt;/main&gt;
+
+&lt;footer class="site-footer"&gt;
+  &lt;p&gt;&amp;copy; 2026 StreamFlix&lt;/p&gt;
+&lt;/footer&gt;
 
 &lt;!-- components/header.html --&gt;
 
@@ -552,43 +588,42 @@ consigna:
 				#consigna-schools .aviso-importante{margin-top:20px; padding:12px; background-color:#fff4d6; border-left:4px solid #e5a100;}
 		</style>
 		<article id="consigna-schools">
-		    <h2>Preparar contenedores vacíos para fragmentos HTML</h2>
+		    <h2>Preparar contenedores vac&iacute;os para fragmentos HTML</h2>
 
     <p class="contexto-consigna">
-        Debes preparar espacios vacíos en <code>index.html</code> para que más adelante JavaScript inserte el encabezado y el pie de página.
+        Debes preparar <code>index.html</code> para que JavaScript pueda insertar el encabezado y el pie de p&aacute;gina m&aacute;s adelante.
     </p>
 
     <h3>Contexto</h3>
     <p>
-        HTML puro no incluye archivos externos por sí solo. Por eso se dejan contenedores vacíos que luego pueden completarse con JavaScript.
+        El encabezado y el pie de p&aacute;gina ya fueron separados en archivos propios. Ahora necesitas dejar dos contenedores vac&iacute;os en <code>index.html</code>: uno antes del contenido principal y otro despu&eacute;s.
     </p>
 
     <h3>Instrucciones</h3>
     <ol>
-        <li>En <code>index.html</code>, agrega un <code>&lt;div&gt;</code> con id <code>header-placeholder</code> antes de <code>&lt;main&gt;</code>.</li>
-        <li>Conserva <code>&lt;main&gt;</code> con el contenido propio de la página.</li>
-        <li>Agrega un <code>&lt;div&gt;</code> con id <code>footer-placeholder</code> después de <code>&lt;main&gt;</code>.</li>
-        <li>Agrega <code>&lt;script src="app.js"&gt;&lt;/script&gt;</code> al final.</li>
-        <li>No vuelDebes escribir <code>&lt;header&gt;</code> ni <code>&lt;footer&gt;</code> directos en <code>index.html</code>.</li>
+        <li>En el primer espacio <code>____</code>, antes de <code>&lt;main&gt;</code>, agrega un <code>&lt;div&gt;</code> vac&iacute;o con id <code>header-placeholder</code>.</li>
+        <li>No escribas contenido dentro de ese <code>&lt;div&gt;</code>.</li>
+        <li>Deja el bloque <code>&lt;main&gt;</code> como est&aacute;.</li>
+        <li>En el segundo espacio <code>____</code>, despu&eacute;s de <code>&lt;/main&gt;</code>, agrega un <code>&lt;div&gt;</code> vac&iacute;o con id <code>footer-placeholder</code>.</li>
+        <li>En el &uacute;ltimo espacio <code>____</code>, agrega la etiqueta <code>&lt;script&gt;</code> que conecta el archivo <code>app.js</code>.</li>
+        <li>No vuelvas a escribir <code>&lt;header&gt;</code> ni <code>&lt;footer&gt;</code> completos en <code>index.html</code>.</li>
     </ol>
 
-    <h3>Código inicial</h3>
+    <h3>C&oacute;digo inicial</h3>
     <pre class="codigo-copiable"><code>&lt;!-- index.html --&gt;
 
-&lt;div id="header-placeholder"&gt;&lt;/div&gt;
-&lt;main&gt;
-&lt;section class="movies-grid"&gt;
-&lt;h2&gt;Películas destacadas&lt;/h2&gt;
-&lt;/section&gt;
-&lt;/main&gt;
-
 ____
-
+&lt;main&gt;
+  &lt;section class="movies-grid"&gt;
+    &lt;h2&gt;Pel&iacute;culas destacadas&lt;/h2&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+____
 ____</code></pre>
 
     <div class="aviso-importante">
-        <strong>Importante:</strong>
-        Los contenedores vacíos deben quedar vacíos. No pegues dentro de ellos el contenido completo del encabezado o del pie de página.
+        <strong>Pista:</strong>
+        Un contenedor debe quedar antes de <code>&lt;main&gt;</code> y el otro despu&eacute;s de <code>&lt;/main&gt;</code>. Ambos deben estar vac&iacute;os; el contenido real se cargar&aacute; m&aacute;s adelante.
     </div>
 
     <h3>Resultado esperado</h3>

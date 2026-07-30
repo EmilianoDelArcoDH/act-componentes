@@ -10,11 +10,11 @@ export function validateIncludesHtmlActividad1(code: string): ValidationResult {
   const messages: string[] = [];
   const normalized = normalizeForSearch(code);
 
-  if (!includesAny(normalized, ["header repetido", "header se repite", "se repite header"])) {
-    messages.push("Marca o escribe que el header esta repetido.");
+  if (!includesAny(normalized, ["header repetido", "header se repite", "se repite header", "encabezado repetido", "encabezado se repite", "se repite encabezado"])) {
+    messages.push("En el bloque Analisis, escribe que el header se repite en las dos paginas.");
   }
-  if (!includesAny(normalized, ["footer repetido", "footer se repite", "se repite footer"])) {
-    messages.push("Marca o escribe que el footer esta repetido.");
+  if (!includesAny(normalized, ["footer repetido", "footer se repite", "se repite footer", "pie de pagina repetido", "pie de pagina se repite", "se repite pie de pagina"])) {
+    messages.push("En el bloque Analisis, escribe que el footer se repite en las dos paginas.");
   }
   if (!includesAny(normalized, ["mantener", "mantenimiento", "dificil", "cambiar en varias paginas", "duplicar dificulta"])) {
     messages.push("Menciona que duplicar dificulta mantener o actualizar.");
@@ -51,9 +51,9 @@ export function validateIncludesHtmlActividad3(code: string): ValidationResult {
   const messages: string[] = [];
   const indexSection = extractNamedSection(code, "index.html") || code;
 
-  if (!hasId(indexSection, "header-placeholder")) messages.push("Falta #header-placeholder en index.html.");
-  if (!hasId(indexSection, "footer-placeholder")) messages.push("Falta #footer-placeholder en index.html.");
-  if (!hasScriptSrc(indexSection, "app.js")) messages.push("Falta script src=\"app.js\".");
+  if (!hasId(indexSection, "header-placeholder")) messages.push("En el primer espacio, agrega <div id=\"header-placeholder\"></div> antes de main.");
+  if (!hasId(indexSection, "footer-placeholder")) messages.push("Despues del cierre de main, agrega <div id=\"footer-placeholder\"></div>.");
+  if (!hasScriptSrc(indexSection, "app.js")) messages.push("Al final de index.html, agrega <script src=\"app.js\"></script>.");
   if (hasTag(indexSection, "header")) messages.push("No debe haber header directo en index.html.");
   if (hasTag(indexSection, "footer")) messages.push("No debe haber footer directo en index.html.");
   if (!hasTag(indexSection, "main")) messages.push("main debe seguir presente.");
