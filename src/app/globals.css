@@ -1,15 +1,15 @@
 :root {
-  --background: #070b14;
-  --surface: rgba(15, 23, 42, 0.82);
+  --background: #08111f;
+  --surface: rgba(13, 24, 40, 0.9);
   --surface-solid: #0f172a;
-  --surface-soft: rgba(30, 41, 59, 0.62);
-  --line: rgba(255, 255, 255, 0.08);
+  --surface-soft: rgba(29, 43, 60, 0.72);
+  --line: rgba(226, 232, 240, 0.12);
   --text: #f8fafc;
-  --muted: #94a3b8;
-  --accent: #8b5cf6;
-  --accent-soft: rgba(139, 92, 246, 0.16);
+  --muted: #a7b4c6;
+  --accent: #14b8a6;
+  --accent-soft: rgba(20, 184, 166, 0.16);
   --ok: #22c55e;
-  --error: #ef4444;
+  --error: #f97316;
   --code: #0b1020;
   --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
 }
@@ -47,23 +47,21 @@ button {
 }
 
 .themeDark {
-  --background: #070b14;
-  --surface: rgba(15, 23, 42, 0.82);
+  --background: #08111f;
+  --surface: rgba(13, 24, 40, 0.9);
   --surface-solid: #0f172a;
-  --surface-soft: rgba(30, 41, 59, 0.62);
-  --line: rgba(255, 255, 255, 0.08);
+  --surface-soft: rgba(29, 43, 60, 0.72);
+  --line: rgba(226, 232, 240, 0.12);
   --text: #f8fafc;
-  --muted: #94a3b8;
-  --accent: #8b5cf6;
-  --accent-soft: rgba(139, 92, 246, 0.16);
+  --muted: #a7b4c6;
+  --accent: #14b8a6;
+  --accent-soft: rgba(20, 184, 166, 0.16);
   --ok: #22c55e;
-  --error: #ef4444;
+  --error: #f97316;
   --code: #0b1020;
   --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
   background:
-    radial-gradient(circle at 18% 10%, rgba(139, 92, 246, 0.18), transparent 34%),
-    radial-gradient(circle at 80% 0%, rgba(34, 197, 94, 0.08), transparent 28%),
-    var(--background);
+    linear-gradient(180deg, #0b1628 0%, #08111f 42%, #09131f 100%);
   color: var(--text);
 }
 
@@ -152,7 +150,7 @@ button {
 .panel,
 .validationPanel {
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 8px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -196,7 +194,7 @@ button {
 .themeDark .activityCard:hover {
   box-shadow:
     var(--shadow),
-    0 0 34px rgba(139, 92, 246, 0.12);
+    0 0 0 1px rgba(20, 184, 166, 0.18);
 }
 
 .guideCard span,
@@ -242,7 +240,7 @@ button {
   display: inline-flex;
   align-items: center;
   padding: 0 16px;
-  border-radius: 12px;
+  border-radius: 8px;
   background: var(--accent);
   color: white;
   font-size: 0.9rem;
@@ -263,6 +261,19 @@ button {
   align-items: start;
 }
 
+.progressHeader.isCompact {
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 12px;
+}
+
+.progressHeader.isCompact .headerTitleBlock {
+  max-width: 860px;
+}
+
+.progressHeader.isCompact h1 {
+  margin: 0;
+}
+
 .headerBrand,
 .headerTitleBlock {
   display: grid;
@@ -274,7 +285,7 @@ button {
   width: fit-content;
   padding: 11px 14px;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font-weight: 800;
@@ -309,6 +320,10 @@ button {
   align-items: start;
 }
 
+.activityGrid.isCompact {
+  grid-template-columns: minmax(520px, 1.55fr) minmax(320px, 0.95fr);
+}
+
 .panel {
   min-width: 0;
   overflow: hidden;
@@ -334,13 +349,14 @@ button {
 
 .instructionsPanel > p {
   padding: 0 20px;
+  white-space: pre-line;
 }
 
 .objectiveBox {
   margin: 0 20px;
   padding: 16px;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 8px;
   background: var(--surface-soft);
 }
 
@@ -361,11 +377,21 @@ button {
   padding: 0 20px 20px;
 }
 
+.activityActions {
+  max-width: 1440px;
+  margin: 0 auto 12px;
+}
+
+.activityActions .actionRow {
+  justify-content: flex-end;
+  padding: 0;
+}
+
 .primaryButton,
 .ghostButton {
   min-height: 44px;
   padding: 0 18px;
-  border-radius: 13px;
+  border-radius: 8px;
   border: 1px solid transparent;
   cursor: pointer;
   font-weight: 800;
@@ -476,7 +502,7 @@ button {
   bottom: -1px;
   left: 0;
   height: 2px;
-  background: #8b5cf6;
+  background: var(--accent);
 }
 
 .editorBody {
@@ -488,7 +514,7 @@ button {
 }
 
 .editorPanel:focus-within .editorBody {
-  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.35);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 42%, transparent);
 }
 
 .codeMirrorHost {
@@ -543,7 +569,7 @@ button {
   justify-content: space-between;
   gap: 12px;
   padding: 14px;
-  border-radius: 14px;
+  border-radius: 8px;
   background: #111827;
   color: white;
 }
@@ -558,9 +584,9 @@ button {
   min-height: 132px;
   padding: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  border-radius: 8px;
   background:
-    linear-gradient(145deg, rgba(139, 92, 246, 0.36), transparent 58%),
+    linear-gradient(145deg, rgba(20, 184, 166, 0.28), transparent 58%),
     #1e293b;
   display: grid;
   align-content: space-between;
@@ -585,7 +611,7 @@ button {
 .streamButton {
   width: fit-content;
   padding: 8px 11px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--accent);
   color: white;
   font-size: 0.78rem;
@@ -607,7 +633,7 @@ button {
 .previewColumn,
 .utilityPreview span {
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 8px;
   background: color-mix(in srgb, var(--surface-solid) 82%, transparent);
   color: var(--text);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
@@ -702,7 +728,7 @@ button {
   height: 30px;
   display: grid;
   place-items: center;
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--accent);
   color: white;
   font-weight: 800;
@@ -768,6 +794,10 @@ button {
 
 .themeLight .activityGrid {
   grid-template-columns: minmax(220px, 0.72fr) minmax(430px, 1.55fr) minmax(300px, 0.95fr);
+}
+
+.themeLight .activityGrid.isCompact {
+  grid-template-columns: minmax(520px, 1.55fr) minmax(320px, 0.95fr);
 }
 
 .themeLight .editorPanel,
@@ -857,6 +887,8 @@ button {
 
 @media (max-width: 1180px) {
   .activityGrid,
+  .activityGrid.isCompact,
+  .themeLight .activityGrid.isCompact,
   .themeLight .activityGrid {
     grid-template-columns: 1fr;
   }

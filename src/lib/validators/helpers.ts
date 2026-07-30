@@ -15,9 +15,25 @@ export function hasTag(code: string, tag: string): boolean {
   return new RegExp(`<\\s*${tag}(\\s|>)`, "i").test(code);
 }
 
+export function extractTag(code: string, tag: string): string {
+  return code.match(new RegExp(`<\\s*${tag}(\\s|>)[\\s\\S]*?<\\/\\s*${tag}\\s*>`, "i"))?.[0] ?? "";
+}
+
+export function removeTag(code: string, tag: string): string {
+  return code.replace(new RegExp(`<\\s*${tag}(\\s|>)[\\s\\S]*?<\\/\\s*${tag}\\s*>`, "gi"), "");
+}
+
 export function hasTagInside(code: string, parent: string, child: string): boolean {
-  const parentMatch = code.match(new RegExp(`<\\s*${parent}(\\s|>)[\\s\\S]*?<\\/\\s*${parent}\\s*>`, "i"))?.[0] ?? "";
+  const parentMatch = extractTag(code, parent);
   return hasTag(parentMatch, child);
+}
+
+export function hasClassInside(code: string, parent: string, className: string): boolean {
+  return hasClass(extractTag(code, parent), className);
+}
+
+export function hasTextInsideTag(code: string, tag: string, textPattern: RegExp): boolean {
+  return textPattern.test(extractTag(code, tag));
 }
 
 export function countClass(code: string, className: string): number {
@@ -79,6 +95,27 @@ export function extractCards(code: string, className = "movie-card"): string[] {
     "gi",
   );
   return Array.from(code.matchAll(pattern), (match) => match[0]);
+}
+
+export function stripTags(code: string): string {
+  return code.replace(/<[^>]+>/g, " ");
+}
+
+export function getTagTexts(code: string, tag: string): string[] {
+  const pattern = new RegExp(`<\\s*${tag}(?:\\s[^>]*)?>[\\s\\S]*?<\\/\\s*${tag}\\s*>`, "gi");
+
+  return Array.from(code.matchAll(pattern), (match) => normalizeForSearch(stripTags(match[0])).replace(/\s+/g, " ").trim()).filter(Boolean);
+}
+
+export function getUniqueNormalizedCount(values: string[]): number {
+  return new Set(values.map((value) => normalizeForSearch(value).replace(/\s+/g, " ").trim()).filter(Boolean)).size;
+}
+
+export function getObjectPropertyValues(objects: string[], property: string): string[] {
+  const escaped = property.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(`${escaped}\\s*:\\s*["']([^"']+)["']`, "i");
+
+  return objects.map((object) => object.match(pattern)?.[1] ?? "").filter(Boolean);
 }
 
 export function countLinks(code: string): number {

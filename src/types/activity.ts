@@ -35,15 +35,15 @@ export type GuideMeta = {
 export type ActivityShellProps = {
   activityId: string;
   title: string;
-  subtitle: string;
-  objective: string;
-  instructions: string;
+  subtitle?: string;
+  objective?: string;
+  instructions?: string;
   initialCode: string;
   preview: ReactNode;
   validate: Validator;
   successMessage: string;
   errorMessages: string[];
-  progressLabel: string;
-  guideTitle: string;
-  progressPercent: number;
+  progressLabel?: string;
+  guideTitle?: string;
+  progressPercent?: number;
 };

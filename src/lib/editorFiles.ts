@@ -88,7 +88,7 @@ ${bodyScripts}
 }
 
 function splitNamedHtmlFiles(initialCode: string): EditorFiles | null {
-  const markers = Array.from(initialCode.matchAll(/<!--\s*([a-z0-9./-]+\.html)\s*-->/gi));
+  const markers = Array.from(initialCode.matchAll(/<!--\s*([a-z0-9./-]+\.(?:html|css|js))\s*-->/gi));
   if (markers.length === 0) return null;
 
   const files: EditorFiles = {};

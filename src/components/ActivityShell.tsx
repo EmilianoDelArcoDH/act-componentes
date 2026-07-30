@@ -14,7 +14,6 @@ export function ActivityShell({
   activityId,
   title,
   subtitle,
-  objective,
   instructions,
   initialCode,
   preview,
@@ -30,7 +29,17 @@ export function ActivityShell({
   const [activeFile, setActiveFile] = useState(getInitialEditorFile(initialFiles));
   const [result, setResult] = useState<ValidationResult | null>(null);
   const combinedCode = useMemo(() => combineEditorFiles(files), [files]);
-  const lineCount = useMemo(() => combinedCode.split("\n").length, [combinedCode]);
+  const showInstructions = Boolean(instructions);
+  const actions = (
+    <div className="actionRow">
+      <button className="primaryButton" type="button" onClick={handleValidate}>
+        Validar
+      </button>
+      <button className="ghostButton" type="button" onClick={handleReset}>
+        Reiniciar
+      </button>
+    </div>
+  );
 
   function handleValidate() {
     const skeletonMessages = validateIndexHtmlSkeleton(combinedCode);
@@ -119,26 +128,14 @@ export function ActivityShell({
         guideTitle={guideTitle}
         progressPercent={progressPercent}
       />
-      <div className="activityGrid">
-        <aside className="panel instructionsPanel">
-          <div className="panelHeader">
-            <span>consigna</span>
-            <span>{lineCount} lineas</span>
-          </div>
-          <div className="objectiveBox">
-            <strong>Objetivo</strong>
-            <p>{objective}</p>
-          </div>
-          <p>{instructions}</p>
-          <div className="actionRow">
-            <button className="primaryButton" type="button" onClick={handleValidate}>
-              Validar
-            </button>
-            <button className="ghostButton" type="button" onClick={handleReset}>
-              Reiniciar
-            </button>
-          </div>
-        </aside>
+      {!showInstructions ? <div className="activityActions">{actions}</div> : null}
+      <div className={`activityGrid ${!showInstructions ? "isCompact" : ""}`}>
+        {showInstructions ? (
+          <aside className="panel instructionsPanel">
+            <p>{instructions}</p>
+            {actions}
+          </aside>
+        ) : null}
         <CodeEditor
           files={files}
           activeFile={activeFile}
